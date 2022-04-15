@@ -68,7 +68,7 @@ def textPentagon():
     print("     [0] выход")
 
 
-def menu():
+def mainmenu():
     flag1 = flag2 = 0
     textMenu()
     try:
@@ -193,5 +193,5 @@ def menu():
         except ValueError:
             option = 5
 
-
-menu()
+if __name__ == '__main__':
+    mainmenu()
