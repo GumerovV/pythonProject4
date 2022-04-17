@@ -3,58 +3,67 @@ class Figure():
     def print_create(self):
         print("Object create")
 
+    def get_coords(self, n):
+        self.s = []
+        self.x = []
+        self.y = []
+        for i in range(n):
+            coord = []
+            while True:
+                try:
+                    coord1, coord2 = map(int, input('Введите координаты ' + str(i+1) + ' точки: \n').split())
+                    break
+                except ValueError:
+                    print("Введены неккоректные координаты")
+            point = coord1, coord2
+            self.x.append(coord1)
+            self.y.append(coord2)
+            self.s.append(point)
+
+    def move(self, n, deltaX, deltaY):
+        for i in range(n):
+            self.x[i], self.y[i] = self.x[i] + deltaX, self.y[i] + deltaY
+
 class triangle(Figure):
-    def __init__(self, x1, y1, x2, y2, x3, y3):
-        self.x1, self.y1 = x1, y1
-        self.x2, self.y2 = x2, y2
-        self.x3, self.y3 = x3, y3
+    def __init__(self):
+        Figure.get_coords(self, 3)
 
     def size(self):
-        return round(abs(1/2*(self.x1*(self.y2-self.y3)+self.x2*(self.y3-self.y1)+self.x3*(self.y1-self.y2))), 5)
+        return round(abs(1/2*(self.x[0]*(self.y[1]-self.y[2])+self.x[1]*(self.y[2]-self.y[0])+self.x[2]*(self.y[0]-self.y[1]))), 5)
 
     def __str__(self):
-        self.a = self.x1, self.y1
-        self.b = self.x2, self.y2
-        self.c = self.x3, self.y3
+        self.a = self.x[0], self.y[0]
+        self.b = self.x[1], self.y[1]
+        self.c = self.x[2], self.y[2]
         return "Triangle ({0.a}; {0.b}; {0.c})".format(self)
 
     def print_create(self):
         print("Triangle create!")
 
     def move(self, deltaX: float, deltaY: float):
-        self.x1, self.y1 = self.x1 + deltaX, self.y1 + deltaY
-        self.x2, self.y2 = self.x2 + deltaX, self.y2 + deltaY
-        self.x3, self.y3 = self.x3 + deltaX, self.y3 + deltaY
+       Figure.move(self, 3, deltaX, deltaY)
 
 class pentagon(Figure):
-    def __init__(self, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5):
-        self.x1, self.y1 = x1, y1
-        self.x2, self.y2 = x2, y2
-        self.x3, self.y3 = x3, y3
-        self.x4, self.y4 = x4, y4
-        self.x5, self.y5 = x5, y5
+    def __init__(self):
+        Figure.get_coords(self, 5)
 
     def size(self):
-        return round(1/2*abs((self.x1*self.y2+self.x2*self.y3+self.x3*self.y4+self.x4*self.y5+self.x5*self.y1)-
-                       (self.y1*self.x2+self.y2*self.x3+self.y3*self.x4+self.y4*self.x5+self.y5*self.x1)), 5)
+        return round(1/2*abs((self.x[0]*self.y[1]+self.x[1]*self.y[2]+self.x[2]*self.y[3]+self.x[3]*self.y[4]+self.x[4]*self.y[0])-
+                       (self.y[0]*self.x[1]+self.y[1]*self.x[2]+self.y[2]*self.x[3]+self.y[3]*self.x[4]+self.y[4]*self.x[0])), 5)
 
     def __str__(self):
-        self.a = self.x1, self.y1
-        self.b = self.x2, self.y2
-        self.c = self.x3, self.y3
-        self.d = self.x4, self.y4
-        self.e = self.x5, self.y5
+        self.a = self.x[0], self.y[0]
+        self.b = self.x[1], self.y[1]
+        self.c = self.x[2], self.y[2]
+        self.d = self.x[3], self.y[3]
+        self.e = self.x[4], self.y[4]
         return "Pentagon ({0.a}; {0.b}; {0.c}; {0.d}; {0.e})".format(self)
 
     def print_create(self):
         print("Pentagon create!")
 
     def move(self, deltaX: float, deltaY: float):
-        self.x1, self.y1 = self.x1 + deltaX, self.y1 + deltaY
-        self.x2, self.y2 = self.x2 + deltaX, self.y2 + deltaY
-        self.x3, self.y3 = self.x3 + deltaX, self.y3 + deltaY
-        self.x4, self.y4 = self.x4 + deltaX, self.y4 + deltaY
-        self.x5, self.y5 = self.x5 + deltaX, self.y5 + deltaY
+        Figure.move(self, 5, deltaX, deltaY)
 
 def textMenu():
     print("Выберите действие или завершите программу:")
@@ -88,19 +97,7 @@ def mainmenu():
     while option:
         if option == 1:
             flag1=1
-            check = True
-            while check:
-                try:
-                    print("Введите через пробел координаты 1 точки")
-                    x1, y1 = map(float, input().split())
-                    print("Введите через пробел координаты 2 точки")
-                    x2, y2 = map(float, input().split())
-                    print("Введите через пробел координаты 3 точки")
-                    x3, y3 = map(float, input().split())
-                    check = False
-                except ValueError:
-                    print("Введены неккоректные координаты")
-            t = triangle(x1, y1, x2, y2, x3, y3)
+            t = triangle()
             t.print_create()
             textTriangle()
             try:
@@ -133,23 +130,7 @@ def mainmenu():
                    option_of_triangle = 5
         elif option == 2:
             flag2 = 1
-            check = True
-            while check:
-                try:
-                    print("Введите через пробел координаты 1 точки")
-                    x1, y1 = map(float, input().split())
-                    print("Введите через пробел координаты 2 точки")
-                    x2, y2 = map(float, input().split())
-                    print("Введите через пробел координаты 3 точки")
-                    x3, y3 = map(float, input().split())
-                    print("Введите через пробел координаты 4 точки")
-                    x4, y4 = map(float, input().split())
-                    print("Введите через пробел координаты 5 точки")
-                    x5, y5 = map(float, input().split())
-                    check = False
-                except ValueError:
-                    print("Введены неккоректные координаты")
-            p = pentagon( x1, y1, x2, y2, x3, y3, x4, y4, x5, y5)
+            p = pentagon()
             p.print_create()
             textPentagon()
             try:
