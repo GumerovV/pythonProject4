@@ -11,7 +11,7 @@ class Figure():
             coord = []
             while True:
                 try:
-                    coord1, coord2 = map(int, input('Введите координаты ' + str(i+1) + ' точки: \n').split())
+                    coord1, coord2 = map(int, input('Введите через пробел координаты ' + str(i+1) + ' точки: \n').split())
                     break
                 except ValueError:
                     print("Введены неккоректные координаты")
