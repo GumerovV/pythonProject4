@@ -1,5 +1,9 @@
 import math
-class triangle():
+class Figure():
+    def print_create(self):
+        print("Object create")
+
+class triangle(Figure):
     def __init__(self, x1, y1, x2, y2, x3, y3):
         self.x1, self.y1 = x1, y1
         self.x2, self.y2 = x2, y2
@@ -14,12 +18,15 @@ class triangle():
         self.c = self.x3, self.y3
         return "Triangle ({0.a}; {0.b}; {0.c})".format(self)
 
+    def print_create(self):
+        print("Triangle create!")
+
     def move(self, deltaX: float, deltaY: float):
         self.x1, self.y1 = self.x1 + deltaX, self.y1 + deltaY
         self.x2, self.y2 = self.x2 + deltaX, self.y2 + deltaY
         self.x3, self.y3 = self.x3 + deltaX, self.y3 + deltaY
 
-class pentagon():
+class pentagon(Figure):
     def __init__(self, x1, y1, x2, y2, x3, y3, x4, y4, x5, y5):
         self.x1, self.y1 = x1, y1
         self.x2, self.y2 = x2, y2
@@ -38,6 +45,9 @@ class pentagon():
         self.d = self.x4, self.y4
         self.e = self.x5, self.y5
         return "Pentagon ({0.a}; {0.b}; {0.c}; {0.d}; {0.e})".format(self)
+
+    def print_create(self):
+        print("Pentagon create!")
 
     def move(self, deltaX: float, deltaY: float):
         self.x1, self.y1 = self.x1 + deltaX, self.y1 + deltaY
@@ -91,7 +101,7 @@ def mainmenu():
                 except ValueError:
                     print("Введены неккоректные координаты")
             t = triangle(x1, y1, x2, y2, x3, y3)
-            print("Object create")
+            t.print_create()
             textTriangle()
             try:
                 option_of_triangle = int(input())
@@ -132,15 +142,15 @@ def mainmenu():
                     x2, y2 = map(float, input().split())
                     print("Введите через пробел координаты 3 точки")
                     x3, y3 = map(float, input().split())
-                    print("Введите через пробел координаты 3 точки")
+                    print("Введите через пробел координаты 4 точки")
                     x4, y4 = map(float, input().split())
-                    print("Введите через пробел координаты 3 точки")
+                    print("Введите через пробел координаты 5 точки")
                     x5, y5 = map(float, input().split())
                     check = False
                 except ValueError:
                     print("Введены неккоректные координаты")
             p = pentagon( x1, y1, x2, y2, x3, y3, x4, y4, x5, y5)
-            print("Object create")
+            p.print_create()
             textPentagon()
             try:
                 option_of_pentagon = int(input())
@@ -159,7 +169,7 @@ def mainmenu():
                             check = False
                         except ValueError:
                             print("Введены неккоректные координаты перемещения")
-                    p.move(1, -1)
+                    p.move(a, b)
                     print(p)
                 elif option_of_pentagon == 3:
                         print(p)
